@@ -9,14 +9,15 @@ const userSchema=mongoose.Schema({
     },
     email:{
 type:String,
-require:true
+required:true
     },
     password:{
-        typeof:String,
-        require:true,
+        type:String,
+        required:true,
     }
 
         
 },{timestamps:true})
 
-export  const user=mongoose.model('user',userSchema)
+ const user=mongoose.model('user',userSchema)
+ export default user
