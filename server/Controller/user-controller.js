@@ -30,11 +30,7 @@ export const signup= async (req,res)=>{
     }
 }
 
-const jwtToke=Jwt.sign(
-    {email:user.email,_id:user._id},
-   process.env.JWT_SECRET,
-   {expiresIn:'24h'}
-    )
+
 export const login= async (req,res)=>{
     try {
         const {name,email,password}=req.body;
@@ -46,6 +42,13 @@ export const login= async (req,res)=>{
          if(!userExists){
             return res.status(403).json({message:errormsg})
         }
+        const jwtToke=Jwt.sign(
+            {email:user.email,_id:user._id},
+           process.env.JWT_SECRET,
+           {expiresIn:'24h'}
+            )
+
+
 
 
     } catch (error) {
