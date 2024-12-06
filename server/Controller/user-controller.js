@@ -33,9 +33,9 @@ export const signup= async (req,res)=>{
 
 export const login= async (req,res)=>{
     try {
-        const {name,email,password}=req.body;
+        const {email,password}=req.body;
         const errormsg="Auth falied email or password is wrong"
-        if(!name||!email||!password){
+        if(!email||!password){
             return res.status(400).json({message:"All required field must be provided"})
         }
          const userExists= await user.findOne({email})
@@ -48,7 +48,13 @@ export const login= async (req,res)=>{
            {expiresIn:'24h'}
             )
 
-
+            res.status(200)
+            .json({
+                message:"log-in-sucess",
+                success:true,
+            jwtToke,
+        email,
+    name:user.name})
 
 
     } catch (error) {

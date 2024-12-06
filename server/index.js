@@ -12,6 +12,7 @@ app.use(bodyParser.json())
 app.use(cors())
 DBconnection()
 app.use('/auth',routes)
+app.use('/products',routes)
 
 app.get('/',(req,res)=>{
     res.send("hello world").json({message:"hello"})
