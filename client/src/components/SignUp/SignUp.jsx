@@ -4,7 +4,7 @@ import "../SignUp/SignUP-module.css"
 import { useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import axios from axios;
 function SignUp() {
 const [input ,setinput]=useState({name:"",email:"",password:""})
 
@@ -13,11 +13,13 @@ const {name,value}=e.target;
 setinput({...input,[name]:value})
 }
 
-const submit=(e)=>{
+const submit= async (e)=>{
     e.preventDefault();
 try {
   console.log(input);
+  const res= await axios.post()
   setinput({name:"",email:"",  password:""})
+
 } catch (error) {
 
   console.log(error);

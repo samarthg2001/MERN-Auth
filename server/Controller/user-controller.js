@@ -42,7 +42,7 @@ export const login= async (req,res)=>{
          if(!userExists){
             return res.status(403).json({message:errormsg})
         }
-        const jwtToke=Jwt.sign(
+        const jwtToken=Jwt.sign(
             {email:user.email,_id:user._id},
            process.env.JWT_SECRET,
            {expiresIn:'24h'}
@@ -52,7 +52,7 @@ export const login= async (req,res)=>{
             .json({
                 message:"log-in-sucess",
                 success:true,
-            jwtToke,
+            jwtToken,
         email,
     name:user.name})
 
