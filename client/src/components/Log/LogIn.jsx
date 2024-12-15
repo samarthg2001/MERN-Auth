@@ -24,7 +24,7 @@ function LogIn() {
       })
 
     } catch (error) {
-      
+      console.log("this is log in error :-",error);
     }
 
   }

@@ -10,7 +10,7 @@ import Joi from "joi";
     if(error){
        const {message}=error
         console.log(message);
-        return res.status(400).json({message:"Bad request",error})
+        return res.status(200).json({message:"Bad request",error})
     }
     next();
 }

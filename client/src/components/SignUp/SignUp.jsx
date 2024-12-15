@@ -1,13 +1,15 @@
 import React from 'react'
 import { Link } from 'react-router'
 import "../SignUp/SignUP-module.css"
-import { useState } from 'react'
+import { useState} from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from axios;
+import axios from 'axios';
+import { useNavigate } from 'react-router';
+
 function SignUp() {
 const [input ,setinput]=useState({name:"",email:"",password:""})
-
+const history=useNavigate();
 const change=(e)=>{
 const {name,value}=e.target;
 setinput({...input,[name]:value})
@@ -17,11 +19,16 @@ const submit= async (e)=>{
     e.preventDefault();
 try {
   console.log(input);
-  const res= await axios.post()
-  setinput({name:"",email:"",  password:""})
-
+  const res= await axios.post("http://localhost:8123/auth/signup1",input)
+  console.log("this is error",res);
+  if(res.status==200||res.status==205){  
+  const {data}=res;
+    const {error:{details:[message]}}=data
+    toast.error(message.message,{autoClose:1500})
+  }
+  setinput({name:"",email:"",password:""})
+  // history("/")
 } catch (error) {
-
   console.log(error);
   setinput({
     name:"",
