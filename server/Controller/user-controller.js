@@ -13,8 +13,7 @@ export const signup= async (req,res)=>{
             return res.status(205).json({message:"All required field must be provided"})
         }
          const userExists= await user.findOne({email})
-         const username= await user.findOne({name})
-         if(userExists || username){
+         if(userExists){
             return res.status(205).json({message: "user already exists , you can login"})
         }
         const hashedPassword=await bcrypt.hash(password,10)
@@ -35,7 +34,7 @@ export const signup= async (req,res)=>{
 export const login= async (req,res)=>{
     try {
         const {email,password}=req.body;
-        const errormsg="Auth falied email or password is wrong"
+        const errormsg=" email or password is wrong"
         if(!email||!password){
             return res.status(400).json({message:"All required field must be provided"})
         }
@@ -43,19 +42,25 @@ export const login= async (req,res)=>{
          if(!userExists){
             return res.status(403).json({message:errormsg})
         }
+        const isPasswordCorrect= await bcrypt.compare(
+            password,
+            userExists.password
+        )
+        if(!isPasswordCorrect){
+            return res.status(400).json({message:"Inccorrect password "})
+        }
         const jwtToken=Jwt.sign(
             {email:user.email,_id:user._id},
            process.env.JWT_SECRET,
            {expiresIn:'24h'}
             )
-
             res.status(200)
             .json({
                 message:"log-in-sucess",
                 success:true,
             jwtToken,
         email,
-    name:user.name})
+    Username:userExists.name})
 
 
     } catch (error) {
