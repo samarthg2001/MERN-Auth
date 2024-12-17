@@ -6,11 +6,8 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import user from '../../../../server/Models/User-Model'
-
-
-
-
 const LogIn =  ()=> {
+  
 const history=useNavigate();
   const [input ,setinput]=useState({
     email:"",
@@ -26,12 +23,9 @@ const history=useNavigate();
       const res= await axios.post("http://localhost:8123/auth/login",input)
       console.log(res);
       const {data : {jwtToken,message,success,Username}}=res;
-      toast.success(`Welcome ${Username}`,{autoClose:2000})
+      
       localStorage.setItem('token',jwtToken);
       localStorage.setItem('loggedInUser',Username)      
-      
-      
-      
       setinput({
         email:"",
         password:"",
